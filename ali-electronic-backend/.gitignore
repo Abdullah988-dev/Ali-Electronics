@@ -1,0 +1,9 @@
+node_modules/
+.env
+npm-debug.log*
+.DS_Store
+# uploaded product images (keep the folders only)
+uploads/*
+!uploads/*/
+uploads/*/*
+!uploads/*/.gitkeep
