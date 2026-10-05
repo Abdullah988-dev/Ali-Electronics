@@ -1,5 +1,5 @@
 // Usage:  npm run db:setup
-// 1) AliElectronicDB database banata hai (agar nahi hai)   2) tables + views banata hai
+// 1) tables + views banata hai (Database pehle se Azure par majood hai)
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -12,10 +12,8 @@ const splitBatches = (text) => text.split(/^\s*GO\s*$/gim).map((s) => s.trim()).
 const run = async () => {
   console.log(`\n▶ SQL Server: ${env.db.server}${env.db.instance ? "\\" + env.db.instance : ""}  |  Database: ${env.db.name}\n`);
 
-  const master = await new sql.ConnectionPool(buildConfig("master")).connect();
-  await master.request().query(`IF DB_ID(N'${env.db.name}') IS NULL CREATE DATABASE [${env.db.name}]`);
-  await master.close();
-  console.log(`✔ Database ready: ${env.db.name}`);
+  // Master DB connection aur naya Database banane wala code hata diya gaya hai
+  console.log(`✔ Using existing database: ${env.db.name}`);
 
   const pool = await new sql.ConnectionPool(buildConfig()).connect();
   const dir = path.join(__dirname, "scripts");
